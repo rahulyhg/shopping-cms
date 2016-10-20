@@ -1,22 +1,173 @@
 $(document).ready(function(){
-  showOrders();
+
+  $(".orderradio").eq(0).attr("checked", true);
+  $(".escroradio").eq(0).attr("checked", true);
+
+  $("#searchText").click(function(event) {
+    searchOrders();
+  });
+
+  $(".dateBtn").click(function(event) {
+    setDatefromBtn($(this).text());
+  });
+
+  $("#startDataInputHour").change(function() {
+    setTimeInterval($(this).val(), $("#startDateInput"));
+  });
+
+  $("#endDataInputHour").change(function() {
+    setTimeInterval($(this).val(), $("#endDateInput"));
+  });
 });
 
-function showOrders(){
-  $("#dataTable").empty();
-  $("#LoadingText").css('display', 'none');
-  // $("#dataTable").append("<tr><td class='resultTableTitleTd'>이름</td><td class='resultTableTd nameData'></td><tr><td class='resultTableTitleTd LeftTab1'>주문번호</td><td class='resultTableTd ordernumData'></td></tr><tr><td class='resultTableTitleTd LeftTab1'>결제수단</td><td class='resultTableTd paymentmetodData'></td></tr><tr><td class='resultTableTitleTd LeftTab1'>받는주소</td><td class='resultTableTd recipientAddressData'></td></tr><tr><td class='resultTableTitleTd LeftTab1'>전화번호</td><td class='resultTableTd recipientContactData'></td></tr><tr><td class='resultTableTitleTd LeftTab1'>운송료</td><td class='resultTableTd shippingCostData'></td></tr>tr><td class='resultTableTitleTd LeftTab1'>총 금액</td><td class='resultTableTd totalCostData'></td></tr><tr><td class='resultTableTitleTd LeftTab2'>이미지</td><td class='resultTableTd imageData'></tr><tr><td class='resultTableTitleTd LeftTab2'>상품명</td><td class='resultTableTd productnameData'></tr><tr><td class='resultTableTitleTd LeftTab2'>가격</td><td class='resultTableTd priceData'></tr><tr><td class='resultTableTitleTd LeftTab2'>수량</td><td class='resultTableTd quantityData'></tr><tr><td class='resultTableTitleTd LeftTab2'>사이트이름</td><td class='resultTableTd sitenameData'></tr><tr><td class='resultTableTitleTd LeftTab2'>옵션</td><td class='resultTableTd optionData'></tr>");
 
+// var NowTime = Now.getFullYear();
+// NowTime += '-' + (Now.getMonth() + 1);
+// NowTime += '-' + Now.getDate();
+// NowTime += ' ' + "00";//Now.getHours();
+// NowTime += ':' + "00";//Now.getMinutes();
+// NowTime += ':' + "00";//Now.getSeconds();
+
+function setDateInterval(month, day, hour, min, second){
+  var Now = new Date();
+  var LastDay = (new Date(Now.getFullYear(),Now.getMonth()+1,0)).getDate();
+  var resYear = Now.getFullYear();
+  var resMonth = (Now.getMonth() + 1 + month);
+  var resDay = Now.getDate() + day;
+
+  if( resMonth > 12 ){
+    resMonth -= 12;
+    resYear++;
+  }
+
+  if( LastDay < resDay ){
+    resMonth++;
+    if(resDay - LastDay < 10){
+      resDay = '0' + (resDay - LastDay);
+    }else{
+      resDay = (resDay - LastDay);
+    }
+  }
+
+  NowTime = resYear;
+  NowTime += '-' + resMonth;
+  NowTime += '-' + resDay;
+  NowTime += ' ' + hour;
+  NowTime += ':' + min;
+  NowTime += ':' + second;
+
+  return NowTime;
+}
+
+function setTimeInterval(hour, input){
+  var result = "";
+  var str = input.val();
+  var first = str.substr(0, 11);
+  result += first;
+  result += parseInt(hour / 10, 10);
+  result += hour - parseInt(hour/10, 10)*10;
+  var end = str.substr(13, 19);
+  result += end;
+  input.val(result);
+}
+
+function setDatefromBtn(str){
+  switch(str){
+    case "오늘":
+      $("#startDateInput").val(setDateInterval(0, 0, "00", "00", "00"));
+      $("#endDateInput").val(setDateInterval(0, 1, "00", "00", "00"));
+      break;
+
+    case "일주일":
+      $("#startDateInput").val(setDateInterval(0, 0, "00", "00", "00"));
+      $("#endDateInput").val(setDateInterval(0, 7, "00", "00", "00"));
+      break;
+    case "15일":
+      $("#startDateInput").val(setDateInterval(0, 0, "00", "00", "00"));
+      $("#endDateInput").val(setDateInterval(0, 15, "00", "00", "00"));
+      break;
+    case "한달":
+      $("#startDateInput").val(setDateInterval(0, 0, "00", "00", "00"));
+      $("#endDateInput").val(setDateInterval(1, 0, "00", "00", "00"));
+      break;
+    case "두달":
+      $("#startDateInput").val(setDateInterval(0, 0, "00", "00", "00"));
+      $("#endDateInput").val(setDateInterval(2, 0, "00", "00", "00"));
+      break;
+    case "전체":
+      $("#startDateInput").val("#");
+      $("#endDateInput").val("#");
+      break;
+
+    default:
+      break;
+  }
+}
+
+function searchOrders(){
+  $(".dataTable").empty();
+  $(".dataTable").append("<tr><td class='resultTableTd'>번호</td><td class='resultTableTd'>상태</td><td class='resultTableTd'>주문일시</td><td class='resultTableTd'>결제일시</td><td class='resultTableTd'>주문번호</td><td class='resultTableTd'>주문자</td><td class='resultTableTd'>받는분</td><td class='resultTableTd'>결제종류</td><td class='resultTableTd'>쿠폰사용액</td><td class='resultTableTdLast'>결제금액</td></tr>");
+
+  //주문검색옵션
+  var orderOpt = $("#orderSearchOpt").val();
+
+  //상품검색옵션
+  var productOpt = $("#productSearchOpt").val();
+  var stateOpt = "";
+
+  //주문상태체크박스
+  for(var i=0; i<$(".ordercheckbox").length; i++){
+    if($(".ordercheckbox").eq(i).is(":checked")){
+      stateOpt += $(".ordercheckbox").eq(i).val();
+      stateOpt += ".";
+    }
+  }
+
+  //처리일자라디오버튼
+  var orderdateOpt = "";
+  for(var i=0; i<$(".orderradio").length; i++){
+    if($(".orderradio").eq(i).is(":checked")){
+      orderdateOpt = $(".orderradio").eq(i).val();
+      break;
+    }
+  }
+
+  //처리일자
+  var dateStart = $("#startDateInput").val();
+  var dateEnd = $("#endDateInput").val();
+
+  //에스크로라디오버튼
+  var escroOpt = "";
+  for(var i=0; i<$(".escroradio").length; i++){
+    if($(".escroradio").eq(i).is(":checked")){
+      escroOpt = $(".escroradio").eq(i).val();
+      break;
+    }
+  }
+
+/*
+$.ajax({
+  url:'./selling_search.php',
+  data : ({'depart':'전체', 'arrival':'전체'}),
+  success:function(data){
+    $('#sellingTable').append(data);
+  },
+})
+*/
   $.ajax({
-    url:'./orders_read.php',
-    data:({}),
+    url:'./Orders_search.php',
+    data:({'orderOpt':orderOpt, 'productOpt':productOpt, 'stateOpt':stateOpt,
+          'orderdateOpt':orderdateOpt, 'dateStart':dateStart, 'dateEnd':dateEnd,
+          'escroOpt':escroOpt}),
     async: true,
     success:function(data){
-      $('#dataTable').append(data);
+      $('.dataTable').append(data);
     },
   })
 }
 
+
+/*firebase
 
 function readOrders(){
 
@@ -111,3 +262,4 @@ function readOrders(){
     //$("#DB_MESSAGE").html(rst);
   });
 }
+*/

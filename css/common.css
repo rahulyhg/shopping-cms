@@ -7,19 +7,78 @@ a{
   font-size:45px;
 }
 
+.MenuContainer{
+  text-align: left;
+  background-color: #cccccc;
+  padding-left:150px;
+}
+
 .Menu{
   color: black;
-  padding: 20px;
-  font-size:25px;
+  padding-left:30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right:60px;
+  font-size:16px;
   display: table-cell;
 }
 
+.selected{
+  font-size:18px;
+  font-weight: bold;
+}
+
 /*Table*/
-.resultTableTitleTd{
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  background-color: powderblue;
+.dataTable{
+  text-align: center;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+.resultTableTd{
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding: 8px;
+}
+
+.resultTableTdLast{
+  border-bottom: 1px solid gray;
   padding: 5px;
+  text-align: center;
+}
+
+.searchTable{
+  width: 1440px;
+  max-width: 1440px;
+  text-align: left;
+}
+
+.searchTableTitleTd{
+  padding:15px;
+  color:black;
+  font-weight: bold;
+}
+
+.searchTableTd{
+  color:#cccccc;
+}
+
+.serarchTableInput{
+  width:200px;
+}
+
+.searchTableRadio{
+  padding:30px;
+}
+
+.searchTableCheck{
+  padding:20px;
+}
+
+.textLink{
+  font-size: 15pt;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .LeftTab1{
@@ -32,11 +91,6 @@ a{
   padding-left:110px;
 }
 
-.resultTableTd{
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  padding: 5px 5px 5px 5px;
-}
 
 header{
 
@@ -44,5 +98,16 @@ header{
 
 nav{
   /*vertical-align: middle;*/
-  background-color: white;
+  text-align: left;
+  background-color: #cccccc;
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.container{
+  width:1440px;
+  max-width: 1440px;
+  padding-left:150px;
+  padding-right:150px;
+  margin: 0 auto;
 }

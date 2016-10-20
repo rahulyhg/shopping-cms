@@ -17,7 +17,6 @@ html, body{margin:0; padding:0; font-size:14px; line-height:1.6em;}
 .fixed{background-attachment:fixed;}
 .circle{border-radius:50%; background-clip:padding-box;}
 .inline{display:inline-block; margin:0 10px 0 0;}
-.inline :last-child{margin:0}
 .normal{ font-style:normal;}
 .btn{display:inline-block; padding:12px 20px; text-transform:uppercase; line-height:1; border-radius:5px; font-weight:bold; text-align:center; cursor:pointer;}
 .inputhei{padding:0px 20px; height:25px;}
@@ -35,8 +34,6 @@ a{outline:none; text-decoration:none;}
 img{width:auto; max-width:100%; height:auto; margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;}
 .imgl{margin:0 15px 10px 0; clear:left;}
 .imgr{margin:0 0 10px 15px; clear:right;}
-
-.centerArea { text-align:center; margin : 0 auto;}
 
 /* Fonts
 --------------------------------------------------------------------------------------------------------------- */
@@ -56,7 +53,7 @@ label{margin-bottom:5px;}
 h1, h2, h3, h4, h5, h6, .heading{margin:0 0 20px 0; font-size:22px; line-height:normal; font-weight:normal; font-variant:small-caps;}
 
 address{font-style:normal; font-weight:normal;}
-hr{display:block; width:100%; height:1px; border:solid; border-width:1px 0 0 0;}
+hr{display:block; width:100%; height:1px; border:solid; border-width:2px 0 0 0;}
 
 .wrapper{display:block; position:relative; margin:0 auto; padding:0; text-align:left; word-wrap:break-word;}
 #header, #breadcrumb, #pageintro, .container, #latest, #cta, #footer, #copyright{display:block; width:100%;}

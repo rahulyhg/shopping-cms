@@ -11,8 +11,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase-database.js"></script>
   <script type="text/javascript" src="./lib/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="./lib/jquery.easing.1.3.js"></script>
-  <script type="text/javascript" src="./js/DataReadnShow.js"></script>
-  <script type="text/javascript" src="./js/DataSearch.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script>
 
   <script type="text/javascript">
   //관리자 인증
@@ -44,20 +43,24 @@
 
 </head>
 <body>
-  <header>
-    <a href="index.html"><h1 class="MainTitle">Baguni</h1></a>
+  <div class="MenuContainer">
+    <nav>
+      <a href="index.html"><span class="Menu selected">메인</span></a>
+      <a href="Orders.php"><span class="Menu">주문</span></a>
+    </nav>
+  </div>
+  <div class="container">
+    <header>
 
-  </header>
-  <nav>
-    <a href="Users.html"><span class="Menu">고객조회</span></a>
-    <a href="Orders.html"><span class="Menu">주문조회</span></a>
-  </nav>
-  <article>
-    Main.
-  </article>
-  <footer>
 
-  </footer>
+    </header>
 
+    <article>
+      메인
+    </article>
+    <footer>
+
+    </footer>
+  </div>
 </body>
 </html>
