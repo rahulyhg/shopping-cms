@@ -1,5 +1,5 @@
 a{
-  color:black;
+  color:#66ccff;
   text-decoration: none;
 }
 
@@ -39,6 +39,7 @@ a{
   border-right: 1px solid gray;
   border-bottom: 1px solid gray;
   padding: 8px;
+  min-width:70px;
 }
 
 .resultTableTdLast{
@@ -54,9 +55,10 @@ a{
 }
 
 .searchTableTitleTd{
-  padding:15px;
+  padding:10px;
   color:black;
   font-weight: bold;
+
 }
 
 .searchTableTd{
@@ -65,6 +67,9 @@ a{
 
 .serarchTableInput{
   width:200px;
+}
+.orderDetailTableInput{
+  max-width:80px;
 }
 
 .searchTableRadio{

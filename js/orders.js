@@ -2,6 +2,7 @@ $(document).ready(function(){
 
   $(".orderradio").eq(0).attr("checked", true);
   $(".escroradio").eq(0).attr("checked", true);
+  setDatefromBtn("오늘");
 
   $("#searchText").click(function(event) {
     searchOrders();
@@ -17,6 +18,10 @@ $(document).ready(function(){
 
   $("#endDataInputHour").change(function() {
     setTimeInterval($(this).val(), $("#endDateInput"));
+  });
+
+  $(".searchTableCheck").change(function() {
+    searchOrders();
   });
 });
 
@@ -154,13 +159,20 @@ $.ajax({
   },
 })
 */
+  var orderInputStr = $("#orderSearchInput").val();
+  var productInputStr= $("#productSearchInput").val();
+
+  console.log(stateOpt);
   $.ajax({
     url:'./Orders_search.php',
-    data:({'orderOpt':orderOpt, 'productOpt':productOpt, 'stateOpt':stateOpt,
+    data:({'orderInputStr':orderInputStr, 'productInputStr':productInputStr,
+          'orderOpt':orderOpt, 'productOpt':productOpt, 'stateOpt':stateOpt,
           'orderdateOpt':orderdateOpt, 'dateStart':dateStart, 'dateEnd':dateEnd,
           'escroOpt':escroOpt}),
     async: true,
     success:function(data){
+      $(".dataTable").empty();
+      $(".dataTable").append("<tr><td class='resultTableTd'>번호</td><td class='resultTableTd'>상태</td><td class='resultTableTd'>주문일시</td><td class='resultTableTd'>결제일시</td><td class='resultTableTd'>주문번호</td><td class='resultTableTd'>주문자</td><td class='resultTableTd'>받는분</td><td class='resultTableTd'>결제종류</td><td class='resultTableTd'>쿠폰사용액</td><td class='resultTableTdLast'>결제금액</td></tr>");
       $('.dataTable').append(data);
     },
   })

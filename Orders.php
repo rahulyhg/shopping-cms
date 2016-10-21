@@ -10,22 +10,22 @@
   <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase-database.js"></script>
   <script type="text/javascript" src="./lib/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="./lib/jquery.easing.1.3.js"></script>
-  <script type="text/javascript" src="./js/orders.js"></script>
+  <script type="text/javascript" src="./js/Orders.js"></script>
   <script type="text/javascript" src="./js/common.js"></script>
 
   <script type="text/javascript">
-  var config = {
-    apiKey: "AIzaSyC1zZPxdB7zYgZOmY2aOaDmcCkfnhXfZjM",
-    authDomain: "baguni-192c1.firebaseapp.com",
-    databaseURL: "https://baguni-192c1.firebaseio.com",
-    storageBucket: "baguni-192c1.appspot.com",
-    messagingSenderId: "1094892330797"
-  };
-  firebase.initializeApp(config);
+  // var config = {
+  //   apiKey: "AIzaSyC1zZPxdB7zYgZOmY2aOaDmcCkfnhXfZjM",
+  //   authDomain: "baguni-192c1.firebaseapp.com",
+  //   databaseURL: "https://baguni-192c1.firebaseio.com",
+  //   storageBucket: "baguni-192c1.appspot.com",
+  //   messagingSenderId: "1094892330797"
+  // };
+  // firebase.initializeApp(config);
   </script>
 
 </head>
-<body>
+<body onkeydown="if(event.keyCode==13) searchOrders();">
   <div class="MenuContainer">
     <nav>
         <a href="index.html"><span class="Menu">메인</span></a>
@@ -253,11 +253,16 @@
           while ($order = mysqli_fetch_assoc($rst)) {
             $orderNum = substr($order['orderDate'], 0, 10);
 
+            $startPos = 0;
+            $resorderNum = "";
+            $charPos;
             while($charPos = strpos($orderNum, "-")){
-              $orderNum[$charPos] = "";
+              $orderNum[$charPos] = " ";
+              $resorderNum .= substr($orderNum, $startPos, $charPos-$startPos);
+              $startPos = $charPos+1;
             }
-
-            $orderNum .= $order["orderSeq"];
+            $resorderNum .= substr($orderNum, $startPos, 2);
+            $resorderNum .= $order['orderSeq'];
 
             echo "
             <tr>
@@ -265,7 +270,7 @@
               <td class='resultTableTd'>".$order['orderState']."</td>
               <td class='resultTableTd'>".$order['orderDate']."</td>
               <td class='resultTableTd'>".$order['purchaseDate']."</td>
-              <td class='resultTableTd'>".$orderNum."</td>
+              <td class='resultTableTd'><a href='Orders_detail.php?id=".$resorderNum."&cost=".$order['totalCost']."'>".$resorderNum."</a></td>
               <td class='resultTableTd'>".$order['username']."</td>
               <td class='resultTableTd'>".$order['recipient']."</td>
               <td class='resultTableTd'>".$order['paymentMethod']."</td>

@@ -15,30 +15,30 @@
 
   <script type="text/javascript">
   //관리자 인증
-  var config = {
-    apiKey: "AIzaSyC1zZPxdB7zYgZOmY2aOaDmcCkfnhXfZjM",
-    authDomain: "baguni-192c1.firebaseapp.com",
-    databaseURL: "https://baguni-192c1.firebaseio.com",
-    storageBucket: "baguni-192c1.appspot.com",
-  };
-
-  firebase.initializeApp(config);
-  var database = firebase.database();
-
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-  } else {
-    // No user is signed in.
-    alert("인증을 진행해주세요.");
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result){
-
-      }).catch(function(error){
-
-    });
-    }
-  });
+  // var config = {
+  //   apiKey: "AIzaSyC1zZPxdB7zYgZOmY2aOaDmcCkfnhXfZjM",
+  //   authDomain: "baguni-192c1.firebaseapp.com",
+  //   databaseURL: "https://baguni-192c1.firebaseio.com",
+  //   storageBucket: "baguni-192c1.appspot.com",
+  // };
+  //
+  // firebase.initializeApp(config);
+  // var database = firebase.database();
+  //
+  // firebase.auth().onAuthStateChanged(function(user) {
+  // if (user) {
+  //   // User is signed in.
+  // } else {
+  //   // No user is signed in.
+  //   alert("인증을 진행해주세요.");
+  //   var provider = new firebase.auth.GoogleAuthProvider();
+  //   firebase.auth().signInWithPopup(provider).then(function(result){
+  //
+  //     }).catch(function(error){
+  //
+  //   });
+  //   }
+  // });
   </script>
 
 </head>

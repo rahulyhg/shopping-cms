@@ -16,5 +16,10 @@ $user = 'root';
 $pw = '111111';
 $dbName = 'baguni';
 
+// $host = 'localhost';
+// $user = 'josungdong';
+// $pw = 'tksekfk31';
+// $dbName = 'josungdong';
+
 $mysqli = new mysqli($host, $user, $pw, $dbName);
 ?>
