@@ -54,6 +54,7 @@
           include_once "dbconn.php";
           $mysqli->query("SET NAMES 'utf8'");
           $orderSeq = substr($_GET['id'], 8);
+          $discountCost = 0;
 
           $sql = "select * from orderinfo where orderSeq ='$orderSeq'";
           $rst = $mysqli->query($sql);
@@ -68,6 +69,7 @@
             $sql = "select * from productoptioninfo where productId ='$productSeq'";
             $optionrst = $mysqli->query($sql);
             $option = mysqli_fetch_assoc($optionrst);
+            $discountCost += $product['discountprice'];
             echo "
             <input type='hidden' class='productId' value='".$productSeq."'>
             <tr>
@@ -173,7 +175,7 @@
           <td class="TableTitleTdPad1">남는 배송비:</td><td>￦3,000</td>
           <td class="TableTitleTdPad1">할인금액:</td>
           <td>
-            <?php=?>
+            <?php echo "$discountCost"; ?>
           </td>
         </tr>
         <tr>
