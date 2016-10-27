@@ -171,12 +171,9 @@
       <br/><br/>
       <table class="inline">
         <tr>
-          <td class="TableTitleTdPad1">관리자 결제금액:</td><td>￦120,000</td>
-          <td class="TableTitleTdPad1">남는 배송비:</td><td>￦3,000</td>
-          <td class="TableTitleTdPad1">할인금액:</td>
-          <td>
-            <?php echo "$discountCost"; ?>
-          </td>
+          <td class="TableTitleTdPad1">관리자 결제금액:</td><td><?php echo "$order[totalCost]"; ?></td>
+          <td class="TableTitleTdPad1">남는 배송비:</td><td></td>
+          <td class="TableTitleTdPad1">할인금액:</td><td><?php echo "$discountCost"; ?></td>
         </tr>
         <tr>
           <td class="TableTitleTdPad1">관리자(주문자):</td><td colspan='4'><input id="adminName" class="inline" maxlength="11" style="width:100px;" value='<?php echo "$order[adminName]"; ?>'></td>

@@ -248,6 +248,7 @@
           include_once "dbconn.php";
           $mysqli->query("SET NAMES 'utf8'");
 
+
           $sql = "select * from orderinfo order by orderSeq desc";
           $rst = $mysqli->query($sql);
           $cnt = mysqli_num_rows($rst);
@@ -268,6 +269,27 @@
             }
             $resorderNum .= substr($orderNum, $startPos, 2);
             $resorderNum .= $order['orderSeq'];
+
+            $orderSeq = $order['orderSeq'];
+
+
+
+            $productsql = "select * from productinfo where orderId ='$orderSeq'";
+            $productrst = $mysqli->query($productsql);
+
+            $cost = 0;
+            $couponCost = 0;
+            while ($product = mysqli_fetch_assoc($productrst)) {
+              $cost += $product['price'];
+              $cost += $product['shippingcost'];
+              $couponCost += $product['discountprice'];
+            }
+
+            $productsql = "update orderinfo set totalCost = '$cost' where orderSeq = '$orderSeq'";
+            $mysqli->query($productsql);
+
+            $productsql = "update orderinfo set couponCost = '$couponCost' where orderSeq = '$orderSeq'";
+            $mysqli->query($productsql);
 
             echo "
             <tr>
