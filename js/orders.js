@@ -197,7 +197,7 @@ function modifyOrders(){
       'request':request, 'adminName':adminName, 'postNum':postNum}),
     async: true,
     success:function(data){
-      //location.href = location.href;
+      location.href = location.href;
       //$(".dataTable").empty();
       //$(".dataTable").append("<tr><td class='resultTableTd'>번호</td><td class='resultTableTd'>상태</td><td class='resultTableTd'>주문일시</td><td class='resultTableTd'>결제일시</td><td class='resultTableTd'>주문번호</td><td class='resultTableTd'>주문자</td><td class='resultTableTd'>받는분</td><td class='resultTableTd'>결제종류</td><td class='resultTableTd'>쿠폰사용액</td><td class='resultTableTdLast'>결제금액</td></tr>");
       //$('.dataTable').append(data);
