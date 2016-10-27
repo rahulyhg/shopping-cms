@@ -1,12 +1,7 @@
-$(document).ready(function(){
-
+function InitOrders(){
   $(".orderradio").eq(0).attr("checked", true);
   $(".escroradio").eq(0).attr("checked", true);
   setDatefromBtn("오늘");
-
-  $("#searchText").click(function(event) {
-    searchOrders();
-  });
 
   $(".dateBtn").click(function(event) {
     setDatefromBtn($(this).text());
@@ -23,15 +18,7 @@ $(document).ready(function(){
   $(".searchTableCheck").change(function() {
     searchOrders();
   });
-});
-
-
-// var NowTime = Now.getFullYear();
-// NowTime += '-' + (Now.getMonth() + 1);
-// NowTime += '-' + Now.getDate();
-// NowTime += ' ' + "00";//Now.getHours();
-// NowTime += ':' + "00";//Now.getMinutes();
-// NowTime += ':' + "00";//Now.getSeconds();
+}
 
 function setDateInterval(month, day, hour, min, second){
   var Now = new Date();
@@ -150,19 +137,9 @@ function searchOrders(){
     }
   }
 
-/*
-$.ajax({
-  url:'./selling_search.php',
-  data : ({'depart':'전체', 'arrival':'전체'}),
-  success:function(data){
-    $('#sellingTable').append(data);
-  },
-})
-*/
   var orderInputStr = $("#orderSearchInput").val();
   var productInputStr= $("#productSearchInput").val();
 
-  console.log(stateOpt);
   $.ajax({
     url:'./Orders_search.php',
     data:({'orderInputStr':orderInputStr, 'productInputStr':productInputStr,
@@ -178,7 +155,108 @@ $.ajax({
   })
 }
 
+function modifyOrders(){
+  var orderId = $("#orderId").val();
 
+  var productId = new Array();
+  for(var i=0; i<$(".productId").length; i++){
+    productId[i] = $(".productId").eq(i).val();
+  }
+
+  var orderState = new Array();
+  for(var i=0; i<$(".orderState").length; i++){
+    orderState[i] = $(".orderState").eq(i).val();
+  }
+
+  var productPrice = new Array();
+  for(var i=0; i<$(".productPrice").length; i++){
+    productPrice[i] = $(".productPrice").eq(i).val();
+  }
+
+  var shippingCost = new Array();
+  for(var i=0; i<$(".shippingCost").length; i++){
+    shippingCost[i] = $(".shippingCost").eq(i).val();
+  }
+
+  var discountCost = new Array();
+  for(var i=0; i<$(".discountCost").length; i++){
+    discountCost[i] = $(".discountCost").eq(i).val();
+  }
+
+  var addressNum = $("#addressNum").val();
+  var address = $("#address").val();
+  var request = $("#requestText").val();
+  var adminName = $("#adminName").val();
+  var postNum = $("#postNum").val();
+
+  $.ajax({
+    url:'./Orders_modify.php',
+    data:({'productId':productId, 'orderId':orderId, 'orderState':orderState,
+    'productPrice':productPrice, 'shippingCost':shippingCost,
+     'discountCost':discountCost, 'addressNum':addressNum, 'address':address,
+      'request':request, 'adminName':adminName, 'postNum':postNum}),
+    async: true,
+    success:function(data){
+      //location.href = location.href;
+      //$(".dataTable").empty();
+      //$(".dataTable").append("<tr><td class='resultTableTd'>번호</td><td class='resultTableTd'>상태</td><td class='resultTableTd'>주문일시</td><td class='resultTableTd'>결제일시</td><td class='resultTableTd'>주문번호</td><td class='resultTableTd'>주문자</td><td class='resultTableTd'>받는분</td><td class='resultTableTd'>결제종류</td><td class='resultTableTd'>쿠폰사용액</td><td class='resultTableTdLast'>결제금액</td></tr>");
+      //$('.dataTable').append(data);
+
+    },
+  })
+}
+
+function commonCheck(obj){
+  if( obj.value == '' || obj.value == null ){
+    alert( '입력해주세요.' );
+    obj.value = '';
+    obj.focus();
+    return false;
+  }
+  var blank_pattern = /^\s+|\s+$/g;
+  if( obj.value.replace( blank_pattern, '' ) == "" ){
+    alert('공백만 입력되었습니다.');
+    obj.value = '';
+    obj.focus();
+    return false;
+  }
+
+  //공백 금지
+  //var blank_pattern = /^\s+|\s+$/g;(/\s/g
+  var blank_pattern = /[\s]/g;
+  if( blank_pattern.test(obj.value) == true){
+    alert(' 공백은 사용할 수 없습니다. ');
+    obj.value = '';
+    obj.focus();
+    return false;
+  }
+  var special_pattern = /[<>`~!@#$%^&*|\\\'\";:\/?]/gi;
+  if( special_pattern.test(obj.value) == true ){
+    alert('특수문자는 사용할 수 없습니다.');
+    obj.value = '';
+    obj.focus();
+    return false;
+  }
+
+  return true;
+}
+
+function hangeulCheck(obj){
+  for (i = 0; i < obj.value.length; i++) {
+    var retCode = obj.value.charCodeAt(i);
+    var retChar = obj.value.substr(i,1).toUpperCase();
+    retCode = parseInt(retCode);
+
+    //입력받은 값중에 한글이 있으면 에러
+    if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ) {
+      intErr = -1;
+      alert('한글 또는 특수문자는 입력할 수 없습니다.');
+      obj.value = '';
+      obj.focus();
+      return false;
+    }
+  }
+}
 /*firebase
 
 function readOrders(){

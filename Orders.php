@@ -22,6 +22,11 @@
   //   messagingSenderId: "1094892330797"
   // };
   // firebase.initializeApp(config);
+  $(document).ready(function(){
+    InitOrders();
+  });
+
+
   </script>
 
 </head>
@@ -36,7 +41,7 @@
     <header>
       <table class="inline searchTable">
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
             주문검색
           </td>
           <td>
@@ -51,7 +56,7 @@
             </select>
             <input class="inline serarchTableInput" id="orderSearchInput"/>
           </td>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
             상품검색
           </td>
           <td>
@@ -63,7 +68,7 @@
           </td>
         </tr>
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
           </td>
           <td colspan="4">
             <span class="searchTableCheck">
@@ -84,7 +89,7 @@
           </td>
         </tr>
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
           </td>
           <td colspan="4">
             <span class="searchTableCheck">
@@ -114,7 +119,7 @@
       <br/>
       <table class="inline searchTable">
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
             처리일자
           </td>
           <td>
@@ -133,7 +138,7 @@
           </td>
         </tr>
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
           </td>
           <td>
             <input class="inline serarchTableInput" id="startDateInput"/>
@@ -201,7 +206,7 @@
           </td>
         </tr>
         <tr>
-          <td class="searchTableTitleTd">
+          <td class="TableTitleTdPad1">
             에스크로
           </td>
           <td>
@@ -218,7 +223,7 @@
         </tr>
       </table>
       <br/><br/>
-      <span id="searchText" class="textLink">검색</span>
+      <span id="searchText" class="textLink" onclick="searchOrders();">검색</span>
       <br/><br/><br/>
     </header>
   </div>
