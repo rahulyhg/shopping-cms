@@ -34,8 +34,34 @@
   </div>
   <div class="container">
     <header>
+      <?php
+
+      include_once "dbconn.php";
+      $mysqli->query("SET NAMES 'utf8'");
+
+      $orderSeq = substr($_GET['id'], 8);
+
+      $productsql = "select * from productinfo where orderId ='$orderSeq'";
+      $productrst = $mysqli->query($productsql);
+
+      $cost = 0;
+      $couponCost = 0;
+      while ($product = mysqli_fetch_assoc($productrst)) {
+        $cost += $product['price'] * $product['quantity'];
+        $cost += $product['shippingcost'];
+        $couponCost += $product['discountprice'];
+      }
+
+      $cost -= $couponCost;
+
+      $productsql = "update orderinfo set totalCost = '$cost' where orderSeq = '$orderSeq'";
+      $mysqli->query($productsql);
+
+      $productsql = "update orderinfo set couponCost = '$couponCost' where orderSeq = '$orderSeq'";
+      $mysqli->query($productsql);
+      ?>
       <span class="inline fl_left">주문번호 : <font style="padding-left:30px; font-size:20px; font-weightbold;"><?php echo $_GET['id']; ?></font></span>
-      <span class="inline fl_right">총 결제금액 : ￦<?php echo $_GET['cost']; ?></span>
+      <span class="inline fl_right">총 결제금액 : ￦<?php echo $cost; ?></span>
 
       <br/><br/><br/>
       <table class="dataTable">
@@ -51,10 +77,11 @@
           <td class="resultTableTd">할인금액</td>
         </tr>
         <?php
-          include_once "dbconn.php";
-          $mysqli->query("SET NAMES 'utf8'");
-          $orderSeq = substr($_GET['id'], 8);
+
           $discountCost = 0;
+
+          $productsql = "update orderinfo set couponCost = '$couponCost' where orderSeq = '$orderSeq'";
+          $mysqli->query($productsql);
 
           $sql = "select * from orderinfo where orderSeq ='$orderSeq'";
           $rst = $mysqli->query($sql);

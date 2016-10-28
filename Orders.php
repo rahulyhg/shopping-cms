@@ -280,10 +280,12 @@
             $cost = 0;
             $couponCost = 0;
             while ($product = mysqli_fetch_assoc($productrst)) {
-              $cost += $product['price'];
+              $cost += $product['price'] * $product['quantity'];
               $cost += $product['shippingcost'];
               $couponCost += $product['discountprice'];
             }
+
+            $cost -= $couponCost;
 
             $productsql = "update orderinfo set totalCost = '$cost' where orderSeq = '$orderSeq'";
             $mysqli->query($productsql);
