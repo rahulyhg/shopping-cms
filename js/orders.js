@@ -1,7 +1,8 @@
 function InitOrders(){
   $(".orderradio").eq(0).attr("checked", true);
   $(".escroradio").eq(0).attr("checked", true);
-  setDatefromBtn("오늘");
+
+  setDatefromBtn("전체");
 
   $(".dateBtn").click(function(event) {
     setDatefromBtn($(this).text());
